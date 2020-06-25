@@ -1,0 +1,51 @@
+{
+  "author": {
+    "name": "Silas B. Domingos",
+    "email": "hello@balmante.eti.br",
+    "url": "https://balmante.eti.br"
+  },
+  "name": "@singleware/convertkit",
+  "description": "Singleware package containing a rest client for the ConvertKit API",
+  "license": "MIT",
+  "version": "1.0.2",
+  "main": "release/source/index.js",
+  "types": "release/types/index.d.ts",
+  "keywords": [
+    "convertkit",
+    "api client",
+    "rest client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/singleware/convertkit"
+  },
+  "dependencies": {
+    "@singleware/class": "^1.1.19",
+    "@singleware/injection": "^1.0.23",
+    "@singleware/restdb": "^1.3.82",
+    "@singleware/types": "^1.1.3"
+  },
+  "devDependencies": {
+    "@singleware/testing": "^1.0.1",
+    "@types/node": "^12.12.30",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.5"
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "trailingComma": "none",
+    "printWidth": 135,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": true
+  },
+  "scripts": {
+    "test": "node ./release/tests/suite.js",
+    "build": "npm run clean && npm run make && npm run make-tests",
+    "clean": "rm -rf ./release",
+    "make": "npm run compile-source",
+    "compile-source": "npx tsc -p ./source",
+    "make-tests": "npm run compile-tests-source",
+    "compile-tests-source": "npx tsc -p ./tests"
+  }
+}

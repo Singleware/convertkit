@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "newLine": "lf",
+    "strict": true,
+    "sourceMap": true,
+    "incremental": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "outDir": "../release/source",
+    "declarationDir": "../release/types"
+  },
+  "include": [
+    "./**/*"
+  ]
+}
