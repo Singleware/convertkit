@@ -18,7 +18,7 @@ export declare class Client extends RestDB.Driver {
      * @returns Returns the insert result.
      * @throws Throws an error when the server response is invalid.
      */
-    protected getInsertResponse<T>(model: RestDB.Model, response: RestDB.Responses.Output): T;
+    protected getInsertResponse<R>(model: RestDB.Model, response: RestDB.Responses.Output): R;
     /**
      * Get the updated entity status from the given response entity.
      * @param model Entity model.
@@ -26,7 +26,7 @@ export declare class Client extends RestDB.Driver {
      * @returns Returns the updated entity status.
      * @throws Throws an error when the server response is invalid.
      */
-    protected getUpdateByIdResponse(model: RestDB.Model, response: RestDB.Responses.Output): boolean;
+    protected getUpdateByIdResponse(model: RestDB.Model, response: RestDB.Responses.Output): boolean | undefined;
     /**
      * Get the request query string based on the specified entity model, filters and fields.
      * @param model Entity model.
@@ -67,18 +67,18 @@ export declare class Client extends RestDB.Driver {
      * @param model Model type.
      * @param entities Entity list.
      * @param options Insert options.
-     * @returns Returns a promise to get the insert results.
+     * @returns Returns a promise to get the insertion results or undefined when an error occurs.
      * @throws Throws an error when the server response is invalid.
      */
-    insert<T extends RestDB.Entity, R>(model: RestDB.Model, entities: T[], options: any): Promise<R[]>;
+    insert<E, R>(model: RestDB.Model<E>, entities: E[], options: RestDB.Options): Promise<R[] | undefined>;
     /**
      * Update the entity that corresponds to the specified Id using a PATCH request.
      * @param model Model type.
      * @param id Entity Id.
      * @param entity Entity data.
      * @param options Update options.
-     * @returns Returns a promise to get the true when the entity has been updated or false otherwise.
+     * @returns Returns a promise to get the true when the entity was updated either undefined when an error occurs or false otherwise.
      * @throws Throws an error when the server response is invalid.
      */
-    updateById(model: RestDB.Model, id: number, entity: RestDB.Entity, options: any): Promise<boolean>;
+    updateById<E, I>(model: RestDB.Model<E>, id: I, entity: RestDB.Entity, options: RestDB.Options): Promise<boolean | undefined>;
 }

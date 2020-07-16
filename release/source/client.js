@@ -120,7 +120,7 @@ let Client = class Client extends RestDB.Driver {
      * @param model Model type.
      * @param entities Entity list.
      * @param options Insert options.
-     * @returns Returns a promise to get the insert results.
+     * @returns Returns a promise to get the insertion results or undefined when an error occurs.
      * @throws Throws an error when the server response is invalid.
      */
     insert(model, entities, options) {
@@ -132,7 +132,7 @@ let Client = class Client extends RestDB.Driver {
      * @param id Entity Id.
      * @param entity Entity data.
      * @param options Update options.
-     * @returns Returns a promise to get the true when the entity has been updated or false otherwise.
+     * @returns Returns a promise to get the true when the entity was updated either undefined when an error occurs or false otherwise.
      * @throws Throws an error when the server response is invalid.
      */
     updateById(model, id, entity, options) {

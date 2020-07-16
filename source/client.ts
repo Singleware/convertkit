@@ -34,7 +34,7 @@ export class Client extends RestDB.Driver {
    * @throws Throws an error when the server response is invalid.
    */
   @Class.Protected()
-  protected getInsertResponse<T>(model: RestDB.Model, response: RestDB.Responses.Output): T {
+  protected getInsertResponse<R>(model: RestDB.Model, response: RestDB.Responses.Output): R {
     this.lastPayload = response.payload;
     if (response.status.code !== 201) {
       throw new Error(`Unexpected insert(${response.input.method}) response status: ${response.status.code}`);
@@ -52,7 +52,7 @@ export class Client extends RestDB.Driver {
    * @throws Throws an error when the server response is invalid.
    */
   @Class.Protected()
-  protected getUpdateByIdResponse(model: RestDB.Model, response: RestDB.Responses.Output): boolean {
+  protected getUpdateByIdResponse(model: RestDB.Model, response: RestDB.Responses.Output): boolean | undefined {
     this.lastPayload = response.payload!;
     if (response.status.code !== 200) {
       throw new Error(`Unexpected update(${response.input.method}) response status: ${response.status.code}`);
@@ -140,11 +140,11 @@ export class Client extends RestDB.Driver {
    * @param model Model type.
    * @param entities Entity list.
    * @param options Insert options.
-   * @returns Returns a promise to get the insert results.
+   * @returns Returns a promise to get the insertion results or undefined when an error occurs.
    * @throws Throws an error when the server response is invalid.
    */
   @Class.Public()
-  public insert<T extends RestDB.Entity, R>(model: RestDB.Model, entities: T[], options: any): Promise<R[]> {
+  public insert<E, R>(model: RestDB.Model<E>, entities: E[], options: RestDB.Options): Promise<R[] | undefined> {
     return super.insert(this.getRequestModel(model), this.attachKey(entities), options);
   }
 
@@ -154,11 +154,11 @@ export class Client extends RestDB.Driver {
    * @param id Entity Id.
    * @param entity Entity data.
    * @param options Update options.
-   * @returns Returns a promise to get the true when the entity has been updated or false otherwise.
+   * @returns Returns a promise to get the true when the entity was updated either undefined when an error occurs or false otherwise.
    * @throws Throws an error when the server response is invalid.
    */
   @Class.Public()
-  public updateById(model: RestDB.Model, id: number, entity: RestDB.Entity, options: any): Promise<boolean> {
+  public updateById<E, I>(model: RestDB.Model<E>, id: I, entity: RestDB.Entity, options: RestDB.Options): Promise<boolean | undefined> {
     return super.updateById(this.getRequestModel(model), id, this.attachKey([entity])[0], options);
   }
 }
